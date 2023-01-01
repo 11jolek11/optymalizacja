@@ -4,10 +4,12 @@ import math
 import numpy as np
 
 
-class Solver():
-    def __init__(self, func, x: list) -> None:
+class Solver:
+    def __init__(self, func: str, x: list) -> None:
+        print('starting')
         self.funct = func
         self.start = x
+        # self.run()
 
     @staticmethod
     def gen_cost_fun(point: np.array,h: list=[], g: list=[]):
