@@ -3,6 +3,8 @@ from numpy.linalg import norm
 from matplotlib.pyplot import *
 from numpy import *
 
+
+
 def f(x, y):
     return x**2 + y**2
     
