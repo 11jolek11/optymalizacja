@@ -1,7 +1,7 @@
 from numpy import *
 from numpy.linalg import norm
 
-from mpl_toolkits.mplot3d import Axes3D
+# from mpl_toolkits.mplot3d import Axes3D
 from matplotlib import cm
 from matplotlib.ticker import LinearLocator, FormatStrFormatter
 from matplotlib.pyplot import *
@@ -31,26 +31,30 @@ def dfdy(x, y):
 def gradf(x, y):
     return array([dfdx(x, y), dfdy(x, y)])   
 
-def steepest_descent1(f, init_t, alpha):
+def steepest_descent1(f, init_t, alpha, EPS=1e-5, history=False):
     """
-    Gradient descent - fixed step
+    Steepest descent - fixed step
     """
     # EPS = 1e-5
-    EPS = 0.01
+    # EPS = 0.01
     prev_t = init_t-10*EPS
     # prev_t = init_t
     t = init_t.copy()
-    
+    history = {}
     max_iter = 1000
     iter = 0
     while norm(t - prev_t) > EPS and iter < max_iter:
         # print(iter)
         prev_t = t.copy()
+        history.update({'iteration': iter, 'value': prev_t.copy()})
         t -= alpha*gradf(t[0], t[1])
         # print(t, f(t[0], t[1]), gradf(t[0], t[1]))
         iter += 1
     print(f'After {iter} iterations.')
-    return array(t)
+    if history:
+        return array(t), history
+    else:
+        return array(t)
 
 if __name__ == "__main__":
-    print(steepest_descent1(f, array([4.0, 4.0]), 0.3))
+    print(steepest_descent1(f, array([4.0, 4.0]), 0.3, 0.01))
